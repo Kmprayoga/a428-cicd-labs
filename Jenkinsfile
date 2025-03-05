@@ -14,7 +14,9 @@ node {
             }
 
             stage('Deploy'){
-                sh './jenkins/scripts/deliver.sh'
+                sh './jenkins/scripts/deploy.sh'
+                input message : "end of app"
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
