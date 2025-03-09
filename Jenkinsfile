@@ -12,12 +12,17 @@ node {
             stage('Test') {
                 sh './jenkins/scripts/test.sh'
             }
-
-            stage('Deploy'){
-                sh './jenkins/scripts/deliver.sh'
-                input message : "Lanjut ke tahap Deploy?"
-                sh './jenkins/scripts/kill.sh'
-            }
         }
+    }
+
+    stage('Manual Approval') {
+        input message: "Lanjutkan ke tahap Deploy?"
+    }
+
+    stage('Deploy') {
+        sh './jenkins/scripts/deliver.sh'
+        echo "Aplikasi berjalan selama 1 menit.."
+        sleep(time: 1, unit: 'MINUTES')
+        sh './jenkins/scripts/kill.sh'
     }
 }
