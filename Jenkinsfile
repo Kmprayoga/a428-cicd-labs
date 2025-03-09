@@ -15,7 +15,7 @@ node {
 
             stage('Deploy'){
                 sh './jenkins/scripts/deliver.sh'
-                input message : "end of app"
+                input message : "Lanjut ke tahap Deploy?"
                 sh './jenkins/scripts/kill.sh'
             }
         }
