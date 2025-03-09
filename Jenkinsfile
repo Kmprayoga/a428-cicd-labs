@@ -15,14 +15,13 @@ node {
         }
     }
 
-    stage('Manual Approval') {
-        input message: "Lanjutkan ke tahap Deploy?"
-    }
-
     stage('Deploy') {
         sh './jenkins/scripts/deliver.sh'
-        echo "Aplikasi berjalan selama 1 menit.."
         sleep(time: 1, unit: 'MINUTES')
+    }
+
+    stage('Manual Approval') {
+        input message: "Lanjutkan ke tahap Deploy?"
         sh './jenkins/scripts/kill.sh'
     }
 }
